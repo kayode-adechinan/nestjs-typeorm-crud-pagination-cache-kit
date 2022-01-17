@@ -27,7 +27,7 @@ services:
       - "3000:3000" #specify ports forewarding
     command:
       bash -c "while !</dev/tcp/database/5432; do sleep 1; done; npm install &&
-      npm run typeorm:makemigrations 'init' && npm run typeorm:migrate && npm run build && npm run start"
+      npm run typeorm:makemigrations 'all' && npm run typeorm:migrate && npm run build && npm run start"
     depends_on:
       - redis
       - database

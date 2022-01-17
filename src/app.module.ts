@@ -1,11 +1,35 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module, CacheInterceptor } from '@nestjs/common';
+
+import * as redisStore from 'cache-manager-redis-store';
+
 import { ItemModule } from './item/item.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SharedModule } from './shared/shared.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 import config from '../ormconfig';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(config), ItemModule, SharedModule],
+  imports: [
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 5, // seconds
+      max: 10, // maximum number of items in cache
+      // uncomment the three lines bellow to swith to redis based caching otherwise you will get in memory caching
+      // store: redisStore,
+      // host: 'redis', // name of the service in docker-compose file, otherwise replace it with 'localhost'
+      // port: 6379,
+    }),
+
+    TypeOrmModule.forRoot(config),
+    ItemModule,
+    SharedModule,
+  ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+  ],
 })
 export class AppModule {}
