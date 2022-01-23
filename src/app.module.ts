@@ -3,11 +3,9 @@ import { CacheModule, Module, CacheInterceptor } from '@nestjs/common';
 import * as redisStore from 'cache-manager-redis-store';
 
 import { ItemModule } from './item/item.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { SharedModule } from './shared/shared.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-
-import config from '../ormconfig';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -21,9 +19,9 @@ import config from '../ormconfig';
       // port: 6379,
     }),
 
-    TypeOrmModule.forRoot(config),
     ItemModule,
     SharedModule,
+    DatabaseModule,
   ],
   providers: [
     {

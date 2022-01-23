@@ -11,6 +11,7 @@ specifiers:
   '@nestjs/swagger': ^5.1.5
   '@nestjs/testing': ^8.0.0
   '@nestjs/typeorm': ^8.0.3
+  '@prisma/client': ^3.8.1
   '@types/cache-manager': ^3.4.2
   '@types/cache-manager-redis-store': ^2.0.1
   '@types/express': ^4.17.13
@@ -30,7 +31,7 @@ specifiers:
   jest: ^27.2.5
   pg: ^8.7.1
   prettier: ^2.3.2
-  redis: ^4.0.2
+  prisma: ^3.8.1
   reflect-metadata: ^0.1.13
   rimraf: ^3.0.2
   rxjs: ^7.2.0
@@ -53,19 +54,19 @@ dependencies:
   '@nestjs/platform-express': 8.2.5_dd9ef2e1e23f087665d46fe53bbbed58
   '@nestjs/swagger': 5.1.5_53f26b9e3dfc6f35a6f9eba4606ad5ff
   '@nestjs/typeorm': 8.0.3_fa8dda60a9697e2f31bd24497506afa8
+  '@prisma/client': 3.8.1_prisma@3.8.1
   cache-manager: 3.6.0
   cache-manager-redis-store: 2.0.0
   class-transformer: 0.5.1
   class-validator: 0.13.2
   dotenv: 14.1.0
   pg: 8.7.1
-  redis: 4.0.2
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
   rxjs: 7.5.2
   sqlite3: 5.0.2
   swagger-ui-express: 4.3.0
-  typeorm: 0.2.41_1797d760f52666b76f3259cc027acf2b
+  typeorm: 0.2.41_pg@8.7.1+sqlite3@5.0.2
 
 devDependencies:
   '@nestjs/cli': 8.2.0_eslint@8.7.0
@@ -84,6 +85,7 @@ devDependencies:
   eslint-plugin-prettier: 4.0.0_4660519532e4c3b0a9e5bb6623cfedf6
   jest: 27.4.7_ts-node@10.4.0
   prettier: 2.5.1
+  prisma: 3.8.1
   source-map-support: 0.5.21
   supertest: 6.2.1
   ts-jest: 27.1.3_2af153f539346dc2e3724aa03bf939c7
@@ -1020,50 +1022,8 @@ packages:
       '@nestjs/core': 8.2.5_2d391bccf7bae46d184f78881868b795
       reflect-metadata: 0.1.13
       rxjs: 7.5.2
-      typeorm: 0.2.41_1797d760f52666b76f3259cc027acf2b
+      typeorm: 0.2.41_pg@8.7.1+sqlite3@5.0.2
       uuid: 8.3.2
-    dev: false
-
-  /@node-redis/bloom/1.0.1_@node-redis+client@1.0.2:
-    resolution: {integrity: sha512-mXEBvEIgF4tUzdIN89LiYsbi6//EdpFA7L8M+DHCvePXg+bfHWi+ct5VI6nHUFQE5+ohm/9wmgihCH3HSkeKsw==}
-    peerDependencies:
-      '@node-redis/client': ^1.0.0
-    dependencies:
-      '@node-redis/client': 1.0.2
-    dev: false
-
-  /@node-redis/client/1.0.2:
-    resolution: {integrity: sha512-C+gkx68pmTnxfV+y4pzasvCH3s4UGHNOAUNhdJxGI27aMdnXNDZct7ffDHBL7bAZSGv9FSwCP5PeYvEIEKGbiA==}
-    engines: {node: '>=12'}
-    dependencies:
-      cluster-key-slot: 1.1.0
-      generic-pool: 3.8.2
-      redis-parser: 3.0.0
-      yallist: 4.0.0
-    dev: false
-
-  /@node-redis/json/1.0.2_@node-redis+client@1.0.2:
-    resolution: {integrity: sha512-qVRgn8WfG46QQ08CghSbY4VhHFgaTY71WjpwRBGEuqGPfWwfRcIf3OqSpR7Q/45X+v3xd8mvYjywqh0wqJ8T+g==}
-    peerDependencies:
-      '@node-redis/client': ^1.0.0
-    dependencies:
-      '@node-redis/client': 1.0.2
-    dev: false
-
-  /@node-redis/search/1.0.2_@node-redis+client@1.0.2:
-    resolution: {integrity: sha512-gWhEeji+kTAvzZeguUNJdMSZNH2c5dv3Bci8Nn2f7VGuf6IvvwuZDSBOuOlirLVgayVuWzAG7EhwaZWK1VDnWQ==}
-    peerDependencies:
-      '@node-redis/client': ^1.0.0
-    dependencies:
-      '@node-redis/client': 1.0.2
-    dev: false
-
-  /@node-redis/time-series/1.0.1_@node-redis+client@1.0.2:
-    resolution: {integrity: sha512-+nTn6EewVj3GlUXPuD3dgheWqo219jTxlo6R+pg24OeVvFHx9aFGGiyOgj3vBPhWUdRZ0xMcujXV5ki4fbLyMw==}
-    peerDependencies:
-      '@node-redis/client': ^1.0.0
-    dependencies:
-      '@node-redis/client': 1.0.2
     dev: false
 
   /@nodelib/fs.scandir/2.1.5:
@@ -1098,6 +1058,29 @@ packages:
     transitivePeerDependencies:
       - encoding
     dev: false
+
+  /@prisma/client/3.8.1_prisma@3.8.1:
+    resolution: {integrity: sha512-NxD1Xbkx1eT1mxSwo1RwZe665mqBETs0VxohuwNfFIxMqcp0g6d4TgugPxwZ4Jb4e5wCu8mQ9quMedhNWIWcZQ==}
+    engines: {node: '>=12.6'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 3.8.0-43.34df67547cf5598f5a6cd3eb45f14ee70c3fb86f
+      prisma: 3.8.1
+    dev: false
+
+  /@prisma/engines-version/3.8.0-43.34df67547cf5598f5a6cd3eb45f14ee70c3fb86f:
+    resolution: {integrity: sha512-G2JH6yWt6ixGKmsRmVgaQYahfwMopim0u/XLIZUo2o/mZ5jdu7+BL+2V5lZr7XiG1axhyrpvlyqE/c0OgYSl3g==}
+    dev: false
+
+  /@prisma/engines/3.8.0-43.34df67547cf5598f5a6cd3eb45f14ee70c3fb86f:
+    resolution: {integrity: sha512-bHYubuItSN/DGYo36aDu7xJiJmK52JOSHs4MK+KbceAtwS20BCWadRgtpQ3iZ2EXfN/B1T0iCXlNraaNwnpU2w==}
+    requiresBuild: true
+    dev: true
 
   /@sinonjs/commons/1.8.3:
     resolution: {integrity: sha512-xkNcLAn/wZaX14RPlwizcKicDk9G3F8m2nU3L7Ukm5zBgTwiT0wsoFAHx9Jq56fJA1z/7uKGtCRu16sOUCLIHQ==}
@@ -2220,11 +2203,6 @@ packages:
     engines: {node: '>=0.8'}
     dev: true
 
-  /cluster-key-slot/1.1.0:
-    resolution: {integrity: sha512-2Nii8p3RwAPiFwsnZvukotvow2rIHM+yQ6ZcBXGHdniadkYGZYiGmkHJIbZPIV9nfv7m/U1IPMVVcAhoWFeklw==}
-    engines: {node: '>=0.10.0'}
-    dev: false
-
   /co/4.6.0:
     resolution: {integrity: sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=}
     engines: {iojs: '>= 1.0.0', node: '>= 0.12.0'}
@@ -3157,11 +3135,6 @@ packages:
       string-width: 1.0.2
       strip-ansi: 3.0.1
       wide-align: 1.1.5
-    dev: false
-
-  /generic-pool/3.8.2:
-    resolution: {integrity: sha512-nGToKy6p3PAbYQ7p1UlWl6vSPwfwU6TMSWK7TTu+WUY4ZjyZQGniGGt2oNVvyNSpyZYSB43zMXVLcBm08MTMkg==}
-    engines: {node: '>= 4'}
     dev: false
 
   /gensync/1.0.0-beta.2:
@@ -4975,6 +4948,15 @@ packages:
       react-is: 17.0.2
     dev: true
 
+  /prisma/3.8.1:
+    resolution: {integrity: sha512-Q8zHwS9m70TaD7qI8u+8hTAmiTpK+IpvRYF3Rgb/OeWGQJOMgZCFFvNCiSfoLEQ95wilK7ctW3KOpc9AuYnRUA==}
+    engines: {node: '>=12.6'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 3.8.0-43.34df67547cf5598f5a6cd3eb45f14ee70c3fb86f
+    dev: true
+
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
     dev: false
@@ -5154,17 +5136,6 @@ packages:
       redis-commands: 1.7.0
       redis-errors: 1.2.0
       redis-parser: 3.0.0
-    dev: false
-
-  /redis/4.0.2:
-    resolution: {integrity: sha512-Ip1DJ/lwuvtJz9AZ6pl1Bv33fWzk5d3iQpGzsXpi04ErkT4fq0pfGOm4k/p9DHmPGieEIOWvJ9xmIeQMooLybg==}
-    engines: {npm: '>=7', typescript: '>=4'}
-    dependencies:
-      '@node-redis/bloom': 1.0.1_@node-redis+client@1.0.2
-      '@node-redis/client': 1.0.2
-      '@node-redis/json': 1.0.2_@node-redis+client@1.0.2
-      '@node-redis/search': 1.0.2_@node-redis+client@1.0.2
-      '@node-redis/time-series': 1.0.1_@node-redis+client@1.0.2
     dev: false
 
   /reflect-metadata/0.1.13:
@@ -6052,7 +6023,7 @@ packages:
     resolution: {integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=}
     dev: false
 
-  /typeorm/0.2.41_1797d760f52666b76f3259cc027acf2b:
+  /typeorm/0.2.41_pg@8.7.1+sqlite3@5.0.2:
     resolution: {integrity: sha512-/d8CLJJxKPgsnrZWiMyPI0rz2MFZnBQrnQ5XP3Vu3mswv2WPexb58QM6BEtmRmlTMYN5KFWUz8SKluze+wS9xw==}
     hasBin: true
     peerDependencies:
@@ -6114,7 +6085,6 @@ packages:
       js-yaml: 4.1.0
       mkdirp: 1.0.4
       pg: 8.7.1
-      redis: 4.0.2
       reflect-metadata: 0.1.13
       sha.js: 2.4.11
       sqlite3: 5.0.2
